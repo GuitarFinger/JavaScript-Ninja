@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.16</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        // 函数调用时不使用new操作符时的结果
+        function User(first, last) {
+            this.name = first + " " + last;
+        }
+
+        var user = User("Ichigo", "Kursosaki");
+
+        assert(user, "User instantiated");
+        assert(user.name == "Ichigo Kursosaki", "User name correctly assigned");
+
+    </script>
+</body>
+</html>
