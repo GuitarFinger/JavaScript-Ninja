@@ -1,0 +1,1 @@
+这是我学习javascript ninja秘籍看的书敲的代码 仅供学习使用
