@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.10</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div id="parent">
+        <div id="a">我就要被删除咯</div>
+        <div id="b">我不想死啊</div>
+    </div>
+
+    <script src="../scripts/assert.js"></script>
+    <script>
+        HTMLElement.prototype.remove = function () {
+            if (this.parentNode)
+                this.parentNode.removeChild(this);
+        }
+
+        var a = document.querySelector("#a");
+
+        setTimeout(function () {
+            a.parentNode.removeChild(a);
+
+            document.querySelector("#b").remove();
+
+            assert(!document.querySelector("#a"), "a is go die");
+            assert(!document.querySelector("#b"), "b is go die too");
+        }, 5000)
+
+
+    </script>
+</body>
+</html>
