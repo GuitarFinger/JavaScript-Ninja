@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.19</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /*在调用者上修复该问题*/
+
+        function User(first, last) {
+            if (!(this instanceof arguments.callee))
+                return new User(first, last);
+            this.name = first + " " + last;
+        }
+
+        var name = "Rukia";
+        var user = User("Ichigo", "Kurosaki");
+
+        assert(name == "Rukia", "Name was set to Rukia");
+        assert(user instanceof User, "User instantiated");
+        assert(user.name == "Ichigo Kurosaki", "User name correctly assigned");
+    </script>
+</body>
+</html>
