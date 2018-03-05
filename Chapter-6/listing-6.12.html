@@ -8,6 +8,7 @@
 <body>
     <script src="../scripts/assert.js"></script>
     <script>
+        // 使用hasOwnProperty()方法辨别Object原型扩展
         Object.prototype.keys = function () {
             var keys = [];
             for (var k in this) {
