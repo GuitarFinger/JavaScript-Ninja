@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.13</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        // 在Number原型上添加一个方法 使用字面量格式调用会出错
+        Number.prototype.add = function (num) {
+            return this + num;
+        };
+
+        var n = 5;
+        assert(n.add(3) == 8, "It words when number is in a variable.");
+        assert((5).add(3) == 8, "Also works if a number is wrapped in parentheses.");
+        assert(5.add(3) == 8, "What about a simple literal?");
+    </script>
+</body>
+</html>
