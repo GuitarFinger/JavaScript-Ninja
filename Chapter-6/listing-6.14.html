@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.14</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        // 子类化Array对象
+        function MyArray() {}
+        MyArray.prototype = new Array();
+        var mine = new MyArray();
+        mine.push(1, 2, 3);
+        assert(mine.length == 3, "All the items are in out sub-classed array");
+        assert(mine instanceof Array, "Verify that e implement Array functionality");
+        console.log(mine);
+    </script>
+</body>
+</html>
