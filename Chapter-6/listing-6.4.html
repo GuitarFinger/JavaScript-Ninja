@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.4</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        function Ninja() {
+            this.swung = true;
+            this.swingSword = function () {
+                return !this.swung;
+            };
+        }
+        var ninja = new Ninja();
+        Ninja.prototype.swingSword = function () {
+            return this.swung;
+        };
+
+        assert(ninja.swingSword(), "Called the instance method, not the prototype method");
+    </script>
+</body>
+</html>

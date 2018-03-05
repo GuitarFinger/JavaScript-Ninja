@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-5.7</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<button id="test">Click Me!</button>
+<script>
+    var button = {
+        clicked: false,
+        click: function () {
+            this.clicked = true;
+            assert(button.clicked, "The button has been clicked");
+        }
+    };
+    var elem = document.querySelector("#test");
+    elem.addEventListener("click", button.click, false);
+</script>
+</body>
+</html>

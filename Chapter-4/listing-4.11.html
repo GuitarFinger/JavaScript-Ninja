@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-4.11</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script>
+    /**
+     * 找出数组中最小值
+     * @param arr {Array} 数组
+     * @returns {Number} 最小值
+     */
+    function smallest(arr) {
+        return Math.min.apply(Math, arr);
+    }
+
+    /**
+     * 找出数组中最大值
+     * @param arr {Array} 数组
+     * @returns {Number} 最大值
+     */
+    function largest(arr) {
+        return Math.max.apply(Math, arr);
+    }
+
+    assert(smallest([0, 1, 2, 3]) == 0, "Located the smallest value.");
+    assert(largest([0, 1, 2, 3]) == 3, "located the largest value.");
+
+</script>
+</body>
+</html>

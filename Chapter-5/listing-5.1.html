@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-5.1</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script>
+    var outValue = 'ninja';
+    function outerFunction() {
+        assert(outValue == 'ninja', "I can see the ninja");
+    }
+
+    outerFunction();
+</script>
+</body>
+</html>

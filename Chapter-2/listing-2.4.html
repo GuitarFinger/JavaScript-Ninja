@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-2.4</title>
+    <style>
+        #results li.pass { color: green; }
+        #results li.fail { color: red; }
+    </style>
+</head>
+<body>
+    <ul id="results"></ul>
+    <script>
+        /**
+         * 测试断言函数
+         * @param value {Boolean} 值
+         * @param desc {String} 描述
+         */
+        function assert(value, desc) {
+            var li = document.createElement("li");
+            li.className = value ? "pass" : "fail";
+            li.appendChild(document.createTextNode(desc));
+            document.querySelector("#results").appendChild(li);
+        }
+
+        window.onload = function () {
+            assert(true, "The test suite is running");
+            assert(false, "Fails!");
+        }
+
+    </script>
+</body>
+</html>

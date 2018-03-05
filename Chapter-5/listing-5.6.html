@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-5.6</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+    <style>
+        #box {
+            position: absolute;
+            border: 3px solid blue;
+            width: 200px;
+            height: 200px;
+            background-color: #eeeeee;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+<div id="box">这是一个盒子</div>
+<script>
+    function animateIt(elementId) {
+        var elem = document.querySelector(`#${elementId}`),
+            tick = 0;
+        
+        var timer = setInterval(function () {
+            if (tick < 100) {
+                elem.style.left = elem.style.top = `${tick}px`;
+                tick++;
+            } else {
+                clearInterval(timer);
+                assert(tick == 100, "Tick accessed vai a closure");
+                assert(elem, "Element also accessed via a closure");
+                assert(timer, "Timer reference also obtained via a closure");
+            }
+        }, 10);
+    }
+
+    animateIt('box');
+
+</script>
+</body>
+</html>

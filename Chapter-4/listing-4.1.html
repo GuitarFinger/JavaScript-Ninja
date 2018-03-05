@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-4.1</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script>
+    window.onload = function () {
+        assert(true, 'power!');
+    };
+
+    var ninja = {
+        shout: function () {
+            assert(true, "Ninja");
+        }
+    };
+
+    ninja.shout();
+
+    setTimeout(function () {
+        assert(true, "Forever!");
+    }, 2000);
+
+    console.log(ninja);
+
+</script>
+
+</body>
+</html>

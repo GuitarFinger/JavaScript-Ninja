@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-4.2</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script>
+    function chirp(n) {
+        return n > 1 ? chirp(n-1) + "-chirp" : "chirp";
+    }
+
+    assert(chirp(10000) == "chirp-chirp-chirp", "Calling the named function comes naturally.");
+
+</script>
+</body>
+</html>

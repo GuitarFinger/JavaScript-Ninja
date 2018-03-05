@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-5.17</title>
+    <style>
+        div { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div>DIV 0</div>
+    <div>DIV 0</div>
+    <script>
+        var divs = document.querySelectorAll('div');
+        for (var i = 0; i < divs.length; i++) {
+            (function (n) {
+                divs[n].addEventListener('click', function () {
+                    console.log("click " + n);
+                });
+            })(i);
+        }
+    </script>
+</body>
+</html>

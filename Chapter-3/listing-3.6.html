@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-3.6</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script>
+
+    function isArray(obj) {
+        return Object.prototype.toString.call(obj) === '[object Array]';
+    }
+
+    function isFunc(obj) {
+        return Object.prototype.toString.call(obj) === '[object Function]';
+    }
+
+    function forEach(list, callback, breakPoint) {
+        if (!isArray(list)) {
+//            console.log("the list must be Array");
+            throw new TypeError("the list must be Array");
+            return;
+        }
+        if (!isFunc(callback)) {
+            throw new TypeError("the callback must be Function");
+            return;
+        }
+        for (var n = 0; n < list.length; n++) {
+            if (list[n] == breakPoint) {
+                break;
+            }
+            console.log("=============", list[n]);
+            callback.call(list[n], n, list[n]);
+        }
+    }
+
+
+    var weapons = ['shuriken', 'katana', 'nunchucks'],
+        testObj = {1: "a"};
+
+    forEach(weapons, function (index, value) {
+        assert(this == weapons[index], "Got the expected value of " + weapons[index]);
+        assert(this == value, "Got the expected straight value of " + value);
+    }, 'katana');
+//    forEach(weapons, 1);
+
+</script>
+</body>
+</html>

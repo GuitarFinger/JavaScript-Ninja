@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-4.5</title>
+    <script src="../scripts/assert.js"></script>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script>
+    var ninja = {
+        chirp: function singal(n) {
+            return n > 1 ? singal(n-1) + "-chirp" : "chirp";
+        }
+    }
+
+    assert(ninja.chirp(3) == "chirp-chirp-chirp", "Works as we would expect it to!");
+
+    var samurai = { chirp: ninja.chirp };
+
+    ninja = {};
+
+    assert(samurai.chirp(3) == "chirp-chirp-chirp", "The method correctly calls itself.");
+
+</script>
+</body>
+</html>
