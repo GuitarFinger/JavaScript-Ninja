@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.18</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /*判断函数是否是作为构造器进行调用*/
+
+        function Test() {
+            return this instanceof arguments.callee;
+        }
+        assert(!Test(), "We didn't instantiate, so it returns false.");
+        assert(new Test(), "We did instantiate, returning true.");
+    </script>
+</body>
+</html>
