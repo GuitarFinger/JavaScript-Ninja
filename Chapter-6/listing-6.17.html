@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.17</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        // 不小心将变量引入到全局命名空间中
+        function User(first, last) {
+            this.name = first + " " + last;
+        }
+        var name = "Rukia";
+        var user = User("Ichigo", "Kurosaki");
+        assert(name == "Rukia", "Name was set to Rukia");
+
+    </script>
+</body>
+</html>
