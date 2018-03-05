@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-6.8</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        function Person(){}
+        Person.prototype.dance = function (){}
+
+        function Ninja(){}
+        Ninja.prototype = new Person();
+
+        var ninja = new Ninja();
+        assert(ninja instanceof Ninja, "ninja receives functionality from the Ninja prototype");
+        assert(ninja instanceof Person, "... and the Person prototype");
+        assert(ninja instanceof Object, "... and the Object prototype");
+        assert(typeof ninja.dance == "function", "... and can dance!");
+        console.log(ninja);
+    </script>
+</body>
+</html>
