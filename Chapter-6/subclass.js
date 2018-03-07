@@ -1,6 +1,7 @@
 /**
  * Created by HZC on 2018/3/5 0005.
  */
+/*创建一个有Object属性和自己属性的子类*/
 (function () {
     var initializing = false,
         /*如果函数能够正常序列化(test()方法将接收一个字符串,然后触发函数的toString()方法)
@@ -11,13 +12,17 @@
 
     Object.subClass = function (properties) {
         // 子类实例化: properties,该参数是期望添加到子类的属性集
-        var _super = this.prototype;
+        var _super = this.prototype; // 将_super指向Object的原型对象
 
-        initializing = true;
-        var proto = new this();
+        initializing = true; // 标识初始化
+        var proto = new this(); // 将proto指向一个Object的实例
         initializing = false;
 
+        // 遍历传过来的参数
         for (var name in properties) {
+            // typeof properties[name] == "function": 子类属性是否是一个函数
+            // typeof _super[name] == "function": 超类属性是否是一个函数
+            // superPattern.test(properties[name]): 子类函数是否包含一个_super()引用
             proto[name] = typeof properties[name] == "function" &&
                           typeof _super[name] == "function" &&
                           superPattern.test(properties[name]) ?
