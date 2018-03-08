@@ -15,7 +15,7 @@
         var _super = this.prototype; // 将_super指向Object的原型对象
 
         initializing = true; // 标识初始化
-        var proto = new this(); // 将proto指向一个Object的实例
+        var proto = new this(); // 将proto指向一个调用者的实例
         initializing = false;
 
         // 遍历传过来的参数
