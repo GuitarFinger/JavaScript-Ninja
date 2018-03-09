@@ -23,6 +23,7 @@
             // typeof properties[name] == "function": 子类属性是否是一个函数
             // typeof _super[name] == "function": 超类属性是否是一个函数
             // superPattern.test(properties[name]): 子类函数是否包含一个_super()引用
+            // 如果父类有子类的方法， 子类就用自己的方法， 如果父类没有子类的方法，子类也有自己的方法
             proto[name] = typeof properties[name] == "function" &&
                           typeof _super[name] == "function" &&
                           superPattern.test(properties[name]) ?
@@ -38,16 +39,17 @@
                 })(name, properties[name]) : properties[name];
         }
 
+        // 定义一个新的类
         function Class() {
             if (!initializing && this.init)
                 this.init.apply(this, arguments);
         }
 
-        Class.prototype = proto;
+        Class.prototype = proto; // 将Class的原型指向proto
 
-        Class.constructor = Class;
+        Class.constructor = Class; // 将Class的构造器指向class
 
-        Class.subClass = arguments.callee;
+        Class.subClass = arguments.callee; // 将Class.subClass指向Object.subClass
 
         return Class;
     };
