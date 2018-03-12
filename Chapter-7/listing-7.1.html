@@ -25,6 +25,11 @@
             }
             return true;
         }
+
+        // 正则表达式实现上面的方法
+        function isThisAZipCodeRex(candidate) {
+            return /^\d{5}-\d{4}$/.test(candidate)
+        }
     </script>
 </body>
 </html>
