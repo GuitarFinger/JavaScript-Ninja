@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-8.3</title>
+</head>
+<body>
+<table>
+    <tbody></tbody>
+</table>
+<script>
+    /**利用定时器分解长时间运行的任务*/
+
+    var rowCount = 200000; // 外循环层数(行)
+    var divideInto = 100; // 分隔的次数
+    var chunkSize = rowCount / divideInto; // 分隔执行块的大小
+    var iteration = 0; // 迭代次数
+    var tbody = document.getElementsByTagName("tbody")[0]; // 获取<tbody>元素
+
+    setTimeout(function generateRows() {
+        var base = (chunkSize) * iteration; // 计算上次中断的地方
+        for (var i = 0; i < chunkSize; i++) {
+            var tr = document.createElement("tr");
+            for (var t = 0; t < 6; t++) {
+                var td = document.createElement("td");
+                td.appendChild(document.createTextNode((i + " base:" + base) + ", " + t + ", iteration:" + iteration));
+                tr.appendChild(td);
+            }
+            tbody.appendChild(tr);
+        }
+        iteration++;
+        if (iteration < divideInto) setTimeout(generateRows, 0); // 调度下一阶段
+    }, 0)
+
+
+</script>
+</body>
+</html>
