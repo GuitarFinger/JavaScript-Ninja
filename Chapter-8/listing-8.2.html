@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-8.2</title>
+</head>
+<table>
+    <tbody></tbody>
+</table>
+<body>
+<script>
+    /**一个长时间运行的任务*/
+    var startTime = (new Date()).getTime();
+    var tbody = document.getElementsByTagName("tbody")[0]; // 查找<tbody>元素
+
+    for (var i = 0; i < 200000; i++) { // 创建20000个行达到一个量级
+        var tr = document.createElement("tr"); // 创建单独的行
+        for (var t = 0; t < 6; t++) {
+            var td = document.createElement("td"); // 对于每个行都创建6个列，每个列包含一个文本节点
+            td.appendChild(document.createTextNode(i + "," + t));
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr); // 将每个元素都附加到父元素上
+    }
+    var endTime = (new Date()).getTime();
+    var diffTime = endTime - startTime;
+    console.log(diffTime);
+</script>
+</body>
+</html>
