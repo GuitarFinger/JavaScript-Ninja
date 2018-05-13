@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-7.3</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<div class="samurai ninja"></div>
+<div class="ninja samurai"></div>
+<div></div>
+<span class="samurai ninja ronin"></span>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**
+     * 按照元素类型查找元素
+     * @param className {String} 类名
+     * @param type {String} 标签类型
+     * @returns {Array} 满足条件标签对象数组
+     */
+    function findClassInElements(className, type=null) {
+        var elems = document.getElementsByTagName(type || "*");
+        var regex = new RegExp("(^|\\s)" + className + "(\\s|$)");
+        var results = [];
+
+        for (var i = 0, length = elems.length; i < length; i++) {
+            if (regex.test(elems[i].className)) {
+                results.push(elems[i]);
+            }
+        }
+        return results;
+    }
+
+    assert(findClassInElements("ninja", "div").length == 2, "The right amount of div ninja was found.");
+    assert(findClassInElements("ninja", "span").length == 1, "The right amount of span ninjas was found.");
+    assert(findClassInElements("ninja").length == 3, "The right amount of ninjas was found.");
+</script>
+</body>
+</html>
