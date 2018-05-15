@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-7.4</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<div id="opacity" style="opacity: 0.5; filter: alpha(opacity=50)"></div>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**捕获嵌入值的简单函数*/
+    function getOpacity(elem) {
+        var filter = elem.style.filter;
+        return filter ? (filter.indexOf("opacity=") >= 0 ? ((parseInt(filter.match(/opacity=([^)]+)/)[0]) / 100) + "" ): "" ): elem.style.opacity;
+    }
+    window.onload = function () {
+        assert(getOpacity(document.querySelector("#opacity")) == "0.5", "The opacity of the element has been obtained.");
+    }
+</script>
+</body>
+</html>
