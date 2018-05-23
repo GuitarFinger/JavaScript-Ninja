@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.2.1</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**用函数构造器进行求值*/
+    var add = new Function("a", "b", "return a + b");
+    assert(add(3, 4) === 7, "Function created and working!");
+    /**反思
+     * 1.Function构造器可变参数列表的最有一个参数，始终是要创建函数的函数载体内容， 前面的参数则表示函数的形参名称
+     * 2.采用Function构造器方式一个明显的区别，函数体由运行时的字符串所提供
+     * 3.使用Function构造器创建函数的时候，不会创建闭包。
+     * */
+</script>
+</body>
+</html>
