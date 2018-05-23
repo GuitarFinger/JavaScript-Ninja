@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-7.14</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    // 匹配所有的字符，包括换行符
+    var html = "<b>Hello</b>\n<i>world!</i>";
+    // 显示换行符没有被匹配到
+    assert(/.*/.exec(html)[0] === "<b>Hello</b>", "A normal capture doesn't handle endlines.");
+    // 使用空白符匹配方式匹配所有的元素
+    assert(/[\S\s]*/.exec(html)[0] === "<b>Hello</b>\n<i>world!</i>", "Matching everything with a character set.");
+    // 用另外一种方式匹配所有的元素
+    assert(/(?:.|\s)*/.exec(html)[0] === "<b>Hello</b>\n<i>world!</i>", "Using a non-capturing group to match everything.");
+</script>
+</body>
+</html>
