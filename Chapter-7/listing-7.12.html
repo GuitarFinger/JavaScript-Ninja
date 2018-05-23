@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-7.12</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    // 双重替换的修剪实现
+    function trim(str) {
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    }
+    assert(trim(" #id div.class ") == "#id div.class", "Extra whitespace trimmed form a selector string.");
+</script>
+</body>
+</html>
