@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.1</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**eval()方法的基本测试*/
+    // 测试一个简单的表达式
+    assert(eval("5 + 5") === 10, "5 and 5 is 10");
+    // 测试一个无用的代码求值
+    assert(eval("var ninja = 5;") === undefined, "no value was returned");
+    // 测试副作用
+    assert(ninja === 5, "The variable ninja was created");
+    // 测试求值作用域
+    (function () {
+        eval("var ninja = 6;");
+        assert(ninja === 6, "evaluated within the current scope.");
+    })();
+    // 测试“遗漏”的作用域
+    assert(window.ninja === 5, "the global scope was unaffected");
+    assert(ninja === 5, "the global scope was unaffected");
+    /**
+     * 反思： eval()方法会影响当前作用域
+     * */
+</script>
+</body>
+</html>
