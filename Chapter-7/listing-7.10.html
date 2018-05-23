@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-7.10</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    // 压缩查询字符串的技术TODO
+    function compress(source) {
+        var keys = {}; // 保存局部键(key)
+
+        source.replace(/([^=&+])=([^&*])/g, function (full, key, value) {// 提取键值对(key/value)的信息
+            keys[key] = (keys[key] ? keys[key] + "," : "") + value;
+            return "";
+        });
+
+        var result = [];
+
+        for (var key in keys) {
+            result.push(key + "=" + keys[key]);
+        }
+        return result.join("&");
+    }
+
+    assert(compress("foo=1&foo=2&blah=a&blah=b&foo=3") == "foo=1,2,3&blah=a,b", "Compression is OK!")
+
+</script>
+</body>
+</html>
