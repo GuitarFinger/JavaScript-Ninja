@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.2</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**测试eval()的返回结果*/
+    var ninja = eval("({name: 'Ninja'})");
+    assert(ninja != undefined, "the ninja was created");
+    assert(ninja.name === "Ninja", "and with the expected property");
+
+    var fn = eval("(function(){return 'Ninja'})");
+    assert(typeof fn === 'function', "the function was created");
+    assert(fn() === "Ninja", "and returns expected value");
+
+    var ninja2= eval("{name: 'Ninja'}");
+    assert(ninja2 != undefined, "ninja2 was created");
+    assert(ninja2.name === "Ninja", "and with the expected property");
+
+    /**反思
+     * 1.从包含对象字面量的字符串中创建一个对象，并测试不仅创建了对象，还是完整的对象
+     * 2.从包好函数字面量的字符串中创建了一个函数，创建了一个能够运行的函数
+     * 3.去掉括号创建方法会报错
+     * 4.eval()创建的函数会继承该作用域的闭包
+     * */
+</script>
+</body>
+</html>
