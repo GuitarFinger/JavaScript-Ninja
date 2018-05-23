@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-7.16</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    // 在css选择器中匹配转义字符
+    var pattern = /^((\w)|(\\.))+$/;
+    var tests = [
+        "formUpdate",
+        "form\\.update\\.whatever",
+        "form\\:update",
+        "\\f\\o\\r\\m\\u\\p\\d\\a\\t\\e",
+        "\\\\\\\\",
+        "form:update"
+    ];
+    for (var n = 0; n < tests.length; n++) {
+        assert(pattern.test(tests[n]), tests[n] + " is a valid identifier");
+    }
+</script>
+</body>
+</html>
