@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-7.9</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    // 将中横线字符串转化成驼峰拼写法
+    function upper(all, letter) { return letter.toUpperCase(); }
+
+    assert("border-bottom-width".replace(/-(\w)/g, upper) == "borderBottomWidth", "Camel cashed a hyphenated string.");
+</script>
+</body>
+</html>
