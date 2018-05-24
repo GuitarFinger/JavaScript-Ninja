@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.3</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**在全局作用域内求值代码*/
+    // 定义一个全局eval()函数
+    function globalEval(data) {
+        data = data.replace(/^\s*|\s*$/g, ""); // 去除所传字符串的所有前导和尾部空白符
+        if (data) {
+            var head = document.getElementsByTagName("head")[0] ||
+                       document.documentElement,
+                script = document.createElement("script");
+            script.type = "text/javascript";
+            script.text = data;
+
+            head.appendChild(script); // 将script节点附加到DOM上
+            head.removeChild(script); // 再去除它
+        }
+    }
+
+    window.onload = function () {
+        (function () {
+            globalEval("var test = 5;");
+        })();
+        assert(test === 5, "The code was evaluated globally.");
+    }
+    /**反思
+     * 当一个script标签被添加到DOM上，当执行到这个script时，会去先执行这个script里面的代码
+     * */
+</script>
+</body>
+</html>
