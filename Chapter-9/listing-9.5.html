@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.5</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**查找函数参数名称的函数*/
+    function argumentNames(fn) {
+        // 查找参数列表
+        var found = /^[\s\(]*function[^(]*\(\s*([^)]*?)\s*\)/.exec(fn.toString());
+        // 分隔参数列表
+        return found && found[1] ?
+            found[1].split(/,\s*/) :
+            [];
+    }
+    // 测试零参数场景
+    assert(argumentNames(function(){}).length === 0, "Works on zero-arg functions.");
+    // 测试一个参数场景
+    assert(argumentNames(function(x){})[0] === "x", "Single argument working.");
+    // 测试多个参数场景
+    var results = argumentNames(function(a,b,c,d,e){});
+    assert(results[0] == 'a' &&
+           results[1] == 'b' &&
+           results[2] == 'c' &&
+           results[3] == 'd' &&
+           results[4] == 'e',
+           "Multiple arguments working!");
+    /**反思
+     * 1.exec()方法接收一个字符串做参数，可以不用toString()，因为不用的话，该函数也会隐式调用它。
+     * 2.这种反编译函数时，需要考虑一个很重要的问题：有的浏览器可能不支持反编译。虽然不是很多，但
+     * 其中之一就是Opera Mini浏览器。
+     * */
+
+</script>
+</body>
+</html>
