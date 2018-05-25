@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.6</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**将JSON字符串转化成javascript对象*/
+    var json = '{"name": "Ninja"}';
+    var object = eval("(" + json + ")");
+    assert(object.name === "Ninja", "My name is Ninja");
+    /**反思
+     * 1.对于早期的浏览器，知道在没有window.JSON的情况下可以用这种方式来对JSON进行处理
+     * 2.使用eval()做JSON解析时需要注意的主要是：
+     *      盲目执行远程服务器上的不可信代码，基本是不可取的，如果是来自我们自己的代码和服务器，
+     *      或其它的可信来源，通常不需要担心恶意代码注入
+     * */
+</script>
+</body>
+</html>
