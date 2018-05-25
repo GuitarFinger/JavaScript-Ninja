@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.4</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**将函数反编译成字符串*/
+    function test(a) { return a + a; }
+    assert(test.toString() === "function test(a) { return a + a; }", "Function decompiled");
+    /**反思
+     * toString()的返回值包含原始声明的所有空格，包括行结束符
+     * */
+</script>
+</body>
+</html>
