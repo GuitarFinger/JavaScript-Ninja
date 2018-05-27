@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-10.1</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**利用一个对象创建一个with作用域*/
+    // 定义一个全局变量
+    var use = "other";
+    // 创建一个对象
+    var katana = {
+        isSharp: true,
+        use: function(){
+            this.isSharp = !this.isSharp;
+        }
+    };
+    // 建立一个with作用域
+    with (katana) {
+        // 在作用域内进行测试
+        assert(use !== "other" && typeof use == "function", "use is a function from the katana object.");
+        assert(this !== katana, "context isn't changed; keeps its original value");
+    }
+    // 在作用域外进行测试
+    assert(use === "other", "outside the with use is unaffected.");
+    assert(typeof isSharp == "undefined", "outside the with the properties don't exist.");
+    /**反思
+     * 1.在with语句的作用域内，对象属性的优先级绝对高于在更高层级作用域内定义的同名变量。
+     * 2.函数上下文(this)是不受with语句影响的。
+     * */
+</script>
+</body>
+</html>
