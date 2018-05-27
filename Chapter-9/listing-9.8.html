@@ -1,0 +1,35 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-9.8</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script src="globalEval.js"></script>
+<script>
+    /**创建一个在页面加载后才执行的脚本标签类型*/
+    window.onload = function () {
+        var scripts = document.getElementsByTagName("script");
+        for (var i = 0; i < scripts.length; i++) {
+            if (scripts[i].type == "x/onload") {
+                globalEval(scripts[i].innerHTML);
+            }
+        }
+    }
+
+    /**反思
+     * 1.自定义脚本，浏览器会忽略任何无法识别的脚本类型。通过使用一个不标准的类型值，
+     * 可以强制浏览器完全忽视一个脚本块，通过指定如下脚本块来实现：
+     *      <script type="x/onload">... custom script here... /script>
+     * 2.使用统一约定的“x”表示自定义类型
+     * */
+</script>
+<script type="x/onload">
+    assert(true, "Executed on page load");
+</script>
+</body>
+</html>
