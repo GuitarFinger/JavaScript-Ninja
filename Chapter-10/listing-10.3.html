@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-10.3</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**with语句的性能测试*/
+    var ninja = { foo: "bar" },
+        value,
+        maxCount = 1000000,
+        n,
+        start,
+        elapsed;
+    //1. 测试不用with的情况
+    start = new Date().getTime();
+    for (n = 0; n < maxCount; n++) {
+        value = ninja.foo;
+    }
+    elapsed = new Date().getTime() - start;
+    assert(true, "Without with: " + elapsed);
+    //2. 测试with内的引用操作
+    start = new Date().getTime();
+    with(ninja) {
+        for (n = 0; n < maxCount; n++) {
+            value = ninja.foo;
+        }
+    }
+    elapsed = new Date().getTime() - start;
+    assert(true, "With (with access): " + elapsed);
+    //3. 测试with内的赋值操作
+    start = new Date().getTime();
+    with(ninja) {
+        for (n = 0; n < maxCount; n++) {
+            foo = n;
+        }
+    }
+    elapsed = new Date().getTime() - start;
+    assert(true, "With (with assignment): " + elapsed);
+    //4. 测试with不进行访问操作时的情况
+    start = new Date().getTime();
+    with(ninja) {
+        for (n = 0; n < maxCount; n++) {
+            value = "no test";
+        }
+    }
+    elapsed = new Date().getTime() - start;
+    assert(true, "With (without access): " + elapsed);
+    /**反思
+     * with作用域内的代码即便没有访问改作用域对象，性能也会大幅变慢
+     * */
+</script>
+</body>
+</html>
