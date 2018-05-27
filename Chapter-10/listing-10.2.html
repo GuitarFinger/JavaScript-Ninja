@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-10.2</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**with作用域内的赋值操作*/
+    var katana = {
+        isSharp: true,
+        use: function(){
+            this.isSharp = !this.isSharp;
+        }
+    };
+
+    with (katana) {
+        isSharp = false;
+        assert(katana.isSharp === false, "properties can be assigned.");
+
+        cut = function() {
+            isSharp = false;
+        };
+        assert(typeof katana.cut == "function", "new properties can be created on the scoped object");
+        assert(typeof window.cut == "function", "new properties are created in the global scope");
+    }
+    /**反思
+     * 对with作用域内不存在的属性进行赋值操作，将会导致在全局上下文内进行赋值操作
+     * */
+</script>
+</body>
+</html>
