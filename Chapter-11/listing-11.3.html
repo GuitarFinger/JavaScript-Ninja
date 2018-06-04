@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-11.3</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div><!-- comment #1 --></div>
+    <div><!-- comment #2 --></div>
+
+<script src="../scripts/assert.js"></script>
+<script>
+    /**实践特征仿真功能来修复浏览器的bug*/
+    function getAllElements(name) {
+        if (!window.findByTagWorksAsExpected) {
+            window.findByTagWorksAsExpected = (function () {
+                var div = document.createElement("div");
+                div.appendChild(document.createComment("test"));
+                return div.getElementsByTagName("*").length === 0;
+            })();
+        }
+
+        var allElements = document.getElementsByTagName("*");
+
+        if (!window.findByTagWorksAsExpected) {
+            for (var n = allElements.length - 1; n >= 0; n--) {
+                if (allElements[n].nodeType === 1)
+                    allElements.splice(n, 1);
+            }
+        }
+        return allElements;
+    }
+
+    var elements = getAllElements();
+    var elementCount = elements.length;
+
+    for (var n = 0; n < elementCount; n++) {
+        assert(elements[n].nodeType === 1, "Node is an element node");
+    }
+
+</script>
+</body>
+</html>
