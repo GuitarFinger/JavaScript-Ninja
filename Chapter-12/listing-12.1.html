@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.1</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<div></div>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**通过DOM方法和属性访问特性值*/
+    window.onload = function () {
+        var div = document.getElementsByTagName("div")[0];
+        // 测试DOM方法
+        div.setAttribute("id", "ninja-1");
+        assert(div.getAttribute('id') === "ninja-1", "Attribute successfully changed");
+        // 特性属性值
+        div.id = "ninja-2";
+        assert(div.id === "ninja-2", "Property successfully changed");
+        // 测试属性和特性是否一致
+        div.id = "ninja-3";
+        assert(div.id === "ninja-3", "Property successfully changed");
+        assert(div.getAttribute('id') === "ninja-3", "Attribute successfully changed via property");
+        // 多次测试属性和特性是否一致
+        div.setAttribute("id", "ninja-4");
+        assert(div.id === "ninja-4", "Property successfully changed via attribute");
+        assert(div.getAttribute('id') === "ninja-4", "Attribute successfully changed");
+    }
+    /**反思
+     * 特性和对应的属性虽然有联系，但并不总是相同
+     * 特性和属性方面，有五个点需要考虑：
+     *    1. 跨浏览器命名
+     *    2. 命名限制
+     *    3. HTML和XML之间的差异
+     *    4. 自定义特性的行为
+     *    5. 性能注意事项
+     * */
+</script>
+</body>
+</html>
