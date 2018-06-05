@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.2</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+<div id="testSubject"></div>
+<script src="../scripts/assert.js"></script>
+<script>
+    /**DOM方法和DOM赋值之间的性能对比*/
+    var count = 5000000
+    var n;
+    var begin = new Date();
+    var end;
+    var testSubject = document.getElementById('testSubject');
+    var value;
+
+    // 测试DOM的读取方法
+    for (n = 0; n < count; n++) {
+        value = testSubject.getAttribute('id');
+    }
+    end = new Date();
+    assert(true, 'Time for DOM method read: ' + (end.getTime() - begin.getTime()));
+
+    // 测试属性读取
+    begin = new Date();
+    for (n = 0; n < count; n++) {
+        value = testSubject.id;
+    }
+    end = new Date();
+    assert(true, 'Time for property read: ' + (end.getTime() - begin.getTime()));
+
+    // 测试DOM的赋值方法
+    begin = new Date();
+    for (n = 0; n < count; n++) {
+        testSubject.setAttribute('id', 'testSubject');
+    }
+    end = new Date();
+    assert(true, 'Time for DOM method write: ' + (end.getTime() - begin.getTime()));
+
+    // 测试属性赋值
+    begin = new Date();
+    for (n = 0; n < count; n++) {
+        testSubject.id = 'testSubject';
+    }
+    end = new Date();
+    assert(true, 'Time for property write: ' + (end.getTime() - begin.getTime()));
+
+    /**反思
+     * 1. 属性的获取和设置操作几乎总比getAttribute()和setAttribute()快
+     * 2. 实现一个方法, 在属性存在的时候访问属性值, 属性值不存在的时候利用DOM方法作为后备。
+     * */
+</script>
+</body>
+</html>
