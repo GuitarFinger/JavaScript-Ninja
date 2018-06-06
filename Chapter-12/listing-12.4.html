@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.4</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <form id="testForm" action="/">
+        <input type="text" id="id">
+        <input type="text" name="action">
+    </form>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**浏览器‘强暴’form元素的实例*/
+        window.onload = function () {
+            var form = document.getElementById('testForm');
+            console.log(form.getAttributeNode("id").nodeValue);
+            assert(form.id === 'testForm', 'the id property is untouched');
+            assert(form.action === '/', 'the action property is untouched');
+            assert(form.getAttribute('id') === 'testForm', 'the id attribute is untouched');
+            assert(form.getAttribute('action') === '/', 'the action attribute is untouched');
+        };
+        /**反思
+         * 1. 在所有的浏览器中，由于这些input元素定义的id和name值,表单的id和action
+         * 属性都会被input元素的引用所代替，原来的属性值都丢失了，除IE以外，其他浏览器
+         * 还可以用DOM特性的方法来获取原来的值，但在IE中，这些特性值也都被替换掉了。
+         * 2. 可以获取描述元素特性本身的原始DOM节点，该节点仍然没有被浏览器所修改。：
+         *      var actionValue = element.getAttributeNode("action").nodeValue
+         * */
+    </script>
+</body>
+</html>
