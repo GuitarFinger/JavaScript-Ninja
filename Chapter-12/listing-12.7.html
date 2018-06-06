@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.7</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+    <style>
+        div {
+            font-size: 1.8em;
+            border: 0 solid gold;
+        }
+    </style>
+</head>
+<body>
+    <div style="color: #000;" title="Ninja powers!">
+        忍者パワー
+    </div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**检测style属性*/
+        window.onload = function () {
+            var div = document.getElementsByTagName("div")[0];
+            assert(div.style.color == 'rgb(0, 0, 0)' || div.style.color == '#000', 'color was recorded');
+            assert(div.style.fontSize == '1.8em', 'fontSize was recorded');
+            assert(div.style.borderWidth == '0', 'borderWidth was recorder');
+            div.style.borderWidth = "4px";
+            assert(div.style.borderWidth == '4px', 'borderWidth was replaced');
+        }
+        /**反思
+         * 一个元素的style属性中的任何一个样式的优先级都要
+         * 高于样式表中所继承的样式(即便样式表中使用了!import注解规则)
+         * */
+    </script>
+</body>
+</html>
