@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.5</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+
+    <a href="listing-11.5.html" id="testSubject"></a>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**演示URL规范化问题*/
+        var link = document.getElementById('testSubject');
+        var linkHref = link.getAttributeNode('href').nodeValue;
+
+        console.log(linkHref);
+        console.log(link.href);
+        console.log(link.getAttribute('href'));
+
+        assert(linkHref === 'listing-11.5.html', 'link node value is ok');
+        assert(link.href === 'listing-11.5.html', 'link property value is ok');
+        assert(link.getAttribute('href') === linkHref, 'link attribute not modified');
+        /**反思
+         * 想要获取不被修改的特性值时，可以使用DOM节点方法来获取这个值
+         * */
+    </script>
+</body>
+</html>
