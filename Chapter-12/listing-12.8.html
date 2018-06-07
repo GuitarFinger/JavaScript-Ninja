@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.8</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div style="color: red;font-size: 10px; background-color: #eee;"></div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**访问样式的简单方式*/
+        function style(element, name, value) {
+            name = name.replace(/-([a-z])/ig,
+                                function (all, letter) {
+                                    return letter.toUpperCase();
+                                });
+
+            if (typeof value !== 'undefined') {
+                element.style[name] = value;
+            }
+
+            return element.style[name];
+        }
+
+        window.onload = function () {
+            var div = document.getElementsByTagName('div')[0];
+
+            assert(true, style(div, 'color'));
+            assert(true, style(div, 'font-size'));
+            assert(true, style(div, 'background-color'));
+        }
+        /**反思
+         * 在JavaScript中，可以使用带有连字符的样式名称，但是如果使用连字符，就不能使用点运算符来访问样式，
+         * 因为JavaScript解析器会将连字符作为减法运算符：
+         *      var color = element.style['font-size']; 有效
+         *      var color = element.style.font-size;  无效
+         * */
+    </script>
+</body>
+</html>
