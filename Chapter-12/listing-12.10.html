@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.10</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <img src="../images/ninja-with-nunchuks.png" style="opacity: .5;">
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**判断一个浏览器是否支持opacity*/
+        var div = document.createElement("div");
+        div.setAttribute('style', 'opacity: .5');
+        var OPACITY_SUPPORTED = div.style.opacity === "0.5";
+        assert(OPACITY_SUPPORTED, "Opacity is supported.");
+        /**反思
+         * 支持opacity的浏览器，总会将opacity值规范成小于1.0且以0开头的值。例如：
+         *    如果将opacity指定为：.5，原始支持opacity的浏览器就会将该值规范为0.5，
+         *    而原始不支持opacity的浏览器则直接返回原有的形式: .5
+         * */
+    </script>
+</body>
+</html>
