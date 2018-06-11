@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.12</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+    <style>
+        div {
+            background-color: #ffc;
+            display: inline;
+            font-size: 1.8em;
+            border: 1px solid crimson;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div style="color: crimson;" id="testSubject" title="Ninja power!">
+        忍者パワー
+    </div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**获取计算样式的值*/
+        function fetchComputedStyle(element, property) {
+            if (window.getComputedStyle) {
+                var computedStyles = window.getComputedStyle(element);
+                if (computedStyles) {
+                    property = property.replace(/([A-Z])/g, '-$1').toLowerCase();
+                    return computedStyles.getPropertyValue(property);
+                }
+            } else if (element.currentStyle) {
+                property = property.replace(/-([a-z])/ig, function (all, letter) { return letter.toUpperCase(); });
+                return element.currentStyle[property];
+            }
+        }
+        window.onload = function () {
+            var div = document.getElementsByTagName('div')[0];
+            assert(true, "background-color: " + fetchComputedStyle(div, 'background-color'));
+            assert(true, "display: " + fetchComputedStyle(div, 'display'));
+            assert(true, "font-size: " + fetchComputedStyle(div, 'fontSize'));
+            assert(true, "color: " + fetchComputedStyle(div, 'color'));
+            assert(true, "border-top-color: " + fetchComputedStyle(div, 'borderTopColor'));
+            assert(true, "border-top-width: " + fetchComputedStyle(div, 'border-top-width'));
+        };
+        /**反思
+         * 1. 不论样式是在元素上显示声明的，还是继承自样式表的，都可以获取得到。
+         * 2. 两种方式都指定了color属性，但是返回的是在元素上显示制定的值。
+         * 3. 元素的style特性指定的样式优先级永远高于继承的样式，即便继承的样式标记为!important也没用。
+         * 4.在获取属性的时候，我们需要监所的是底层的单个属性。如果不能检测border，而是应该检索像border-top-color和border-top-width这样的属性
+         * */
+    </script>
+</body>
+</html>
