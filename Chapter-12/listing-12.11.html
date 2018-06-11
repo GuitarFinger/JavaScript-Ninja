@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-12.11</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div style="background-color: darkslateblue;">&nbsp;</div>
+    <div style="background-color: #369;">&nbsp;</div>
+    <div style="background-color: #123456;">&nbsp;</div>
+    <div style="background-color: rgb(44, 88, 168);">&nbsp;</div>
+    <div style="background-color: rgba(44, 88, 166, 0.5);">&nbsp;</div>
+    <div style="background-color: hsl(120, 100%, 25%)">&nbsp;</div>
+    <div style="background-color: hsla(120, 100%, 25%, 0.5);">&nbsp;</div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**判断浏览器是如何格式化颜色信息的*/
+        var divs = document.getElementsByTagName('div');
+        for (var n = 0; n < divs.length; n++) {
+            assert(true, divs[n].style.backgroundColor);
+        }
+    </script>
+</body>
+</html>
