@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-13.1</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div title="Click me">私をクリック</div>
+    <div title="but only once">一度だけ</div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**绑定事件处理程序时，设置正确的上下文*/
+        if (document.addEventListener) {
+            this.addEvent = function (elem, type, fn) {
+                elem.addEventListener(type, fn, false);
+                return fn;
+            };
+            this.removeEvent = function (elem, type, fn) {
+                elem.removeEventListener(type, fn, false);
+            }
+        } else if (document.attachEvent) {
+            this.addEvent = function (elem, type, fn) {
+                var bound = function () {
+                    return fn.apply(elem, arguments);
+                };
+                elem.attachEvent("on" + type, bound);
+                return bound;
+            };
+            this.removeEvent = function (elem, type, fn) {
+                elem.detachEvent("on" + type, fn);
+            };
+        }
+
+        addEvent(window, "load", function () {
+            var elems = document.getElementsByTagName("div");
+            for (var i = 0; i < elems.length; i++) {
+                (function (elem) {
+                    var handler = addEvent(elem, "click", function () {
+                        this.style.backgroundColor = this.style.backgroundColor == '' ? 'green': '';
+                        removeEvent(elem, "click", handler);
+                    })
+                })(elems[i]);
+            }
+        })
+    </script>
+</body>
+</html>
