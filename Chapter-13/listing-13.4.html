@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-13.4</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div title="Ninja Power!">忍者パワー!</div>
+    <div title="Secrets">秘密</div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**实现一个中央对象用于保存DOM元素信息*/
+        (function () {
+            // 保存和元素相关联的数据
+            var cache = {};
+            // 一个用于生成元素GUID的计数器
+            var guidCounter = 1;
+            // 一个属性名称，将其作为元素的GUID进行保存。使用当前时间戳做名称可以防止与用户自定义名称有潜在的冲突
+            var expando = "data" + (new Date).getTime();
+
+            //
+            this.getData = function (elem) {
+                var guid = elem[expando];
+                if (!guid) {
+                    guid = elem[expando] = guidCounter++;
+                    cache[guid] = {};
+                }
+                return cache[guid];
+            };
+
+            this.removeData = function (elem) {
+                var guid = elem[expando];
+                if (!guid) return;
+                delete cache[guid];
+                try {
+                    delete elem[expando];
+                } catch (e) {
+                    if (elem.removeAttribute) {
+                        elem.removeAttribute(expando);
+                    }
+                }
+            }
+        })();
+
+        var elems = document.getElementsByTagName('div');
+        for (var n = 0; n < elems.length; n++) {
+            getData(elems[n]).ninja = elems[n].title;
+        }
+
+        for (var n =0; n < elems.length; n++) {
+            assert(getData(elems[n]).ninja === elems[n].title, "Stored data is " + getData(elems[n]).ninja);
+        }
+
+        for (var n = 0; n < elems.length; n++) {
+            removeData((elems[n]));
+            assert(getData(elems[n]).ninja === undefined, "Stored data has been destroyed");
+        }
+        /**反思
+         * 1. 不将事件处理程序直接绑定在元素上是有利的。如果我们使用一个中间事件处理程序，并将所有的处理程序都
+         * 保存在一个单独的对象上，可以最大化的控制处理过程。除此之外，还能够做到如下几点：
+         *    1. 规范处理程序的上下文
+         *    2. 修复Event对象的属性
+         *    3. 处理垃圾回收
+         *    4. 过滤触发或删除一些处理程序
+         *    5. 解绑特定类型的所有事件
+         *    6. 克隆事件处理程序
+         * 2. 集中存储相关信息：
+         *    管理与DOM元素相关联的处理程序的最好方式是给每个元素都指定一个唯一标识符(不要和DOM的id混淆),然后将
+         *    所有相关的数据和该标识符一个保存在一个集中对象上。虽然将信息单独保存在每个元素上似乎更自然，但是将
+         *    所有的数据都保存在一个集中对象上可以避免IE浏览器的潜在内存泄露问题，这些潜在问题在某些情况下会丢失
+         *    信息。(例如，在IE中的DOM元素上绑定的函数如果在某个元素节点上有闭包关联的话，离开页面会导致内存回收
+         *    失败)
+         * */
+    </script>
+</body>
+</html>
