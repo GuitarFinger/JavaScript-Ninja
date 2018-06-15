@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-13.8</title>
+</head>
+<body>
+    <div id="testSubject1" title="Click one">1111</div>
+    <div id="testSubject2" title="mouse over">2222</div>
+    <div id="testSubject3" title="many times">3333</div>
+
+    <script src="data.js"></script>
+    <script src="fixup.js"></script>
+    <script src="events.js"></script>
+    <script>
+        /**对事件函数进行冒烟测试*/
+        addEvent(window, "load", function () {
+            var subjects = document.getElementsByTagName("div");
+            for (var i = 0; i < subjects.length; i++) {
+                (function (elem) {
+                    addEvent(elem, "mouseover", function (e) {
+                        this.style.backgroundColor = "red";
+                    });
+                    addEvent(elem, "click", function handler(e){
+                        this.style.backgroundColor = "green";
+                        removeEvent(elem, "click", handler);
+                    });
+                })(subjects[i]);
+            }
+        });
+    </script>
+</body>
+</html>
