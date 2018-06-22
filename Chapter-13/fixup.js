@@ -90,7 +90,7 @@ function fixEvent(event) {
          * 在IE Model中，使用了拉掩码(左单机是1，右单击是2，中间单击是4)，所以
          * 需要将其转换成DOM Model的等价值(左单机是0，右单击是1，中间单击是2)
          * */
-        if (event.button !== null) {
+        if (event.button != null) {
             event.button = (event.button & 1 ? 0 :
                 (event.button & 4 ? 1 :
                     (event.button & 2 ? 2 : 0)));

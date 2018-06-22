@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-13.10</title>
+</head>
+<body>
+    <button type="button" id="clickMe">Start</button>
+    <img src="whirly-thing.gif" alt="" id="whirlyThing">
+    <script src="data.js"></script>
+    <script src="fixup.js"></script>
+    <script src="events.js"></script>
+    <script src="trigger.js"></script>
+    <script src="ajaxy-operation.js"></script>
+    <script>
+        addEvent(window, 'load', function () {
+            var button = document.querySelector("#clickMe");
+            addEvent(button, 'click', function () {
+                performAjaxOperation(this);
+            });
+
+            var body = document.getElementsByTagName('body')[0];
+            addEvent(body, 'ajax-start', function (e) {
+                document.getElementById('whirlyThing').style.display = 'inline-block';
+            });
+
+            addEvent(body, 'ajax-complete', function (e) {
+                document.getElementById('whirlyThing').style.display = 'none';
+            });
+        })
+    </script>
+</body>
+</html>
