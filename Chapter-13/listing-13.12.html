@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-13.12</title>
+</head>
+<body>
+    <script src="event-support.js"></script>
+    <script>
+        /**用click或keypress对submit进行冒泡测试*/
+        (function () {
+            var isSubmitEventSupported = isEventSupported("submit");
+
+            function isInForm(elem) {
+                var parent = elem.parentNode;
+                while (parent) {
+                    if (parent.nodeName.toLowerCase() === "form") {
+                        return true;
+                    }
+                    parent = parent.parentNode;
+                }
+                return false;
+            }
+
+            function triggerSubmitOnClick(e) {
+                var type = e.target.type;
+                if ((type === "submit" || type === "image") && isInForm(e.target)) {
+                    return triggerEvent(this, "submit");
+                }
+            }
+
+            function triggerSubmitOnKey(e) {
+                var type = e.target.type;
+                if ((type === "text" || type === "password") &&
+                    isInForm(e.target) && e.keyCode === 13) {
+                    return triggerEvent(this, "submit");
+                }
+            }
+
+            this.addSubmit = function (elem, fn) {
+                addEvent(elem, "submit", fn);
+                if (isSubmitEventSupported) return;
+
+                if (elem.nodeName.toLowerCase() !== "form" &&
+                        getData(elem).handlers.submit.length === 1) {
+                    addEvent(elem, "click", triggerSubmitOnClick);
+                    addEvent(elem, "keypress", triggerSubmitOnKey);
+                }
+            };
+
+            this.removeSubmit = function (elem, fn) {
+                removeEvent(elem, "submit", fn);
+                if (isEventSupported("submit")) return;
+                var data = getData(elem);
+                if (elem.nodeName.toLowerCase() !== "form" &&
+                        !data || !data.events || !data.events.submit) {
+                    removeEvent(elem, "click", triggerSubmitOnClick);
+                    removeEvent(elem, "keypress", triggerSubmitOnKey);
+                }
+            }
+
+        })();
+
+
+    </script>
+</body>
+</html>
