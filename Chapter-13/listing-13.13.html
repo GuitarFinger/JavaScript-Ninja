@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-13.13</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**跨浏览器可冒泡change事件的一个实现*/
+        (function () {
+            this.addChange = function (elem, fn) {
+                addEvent(elem, "change", fn);
+                if (isEventSupported("change")) return;
+
+                if (getData(elem).events.change.length === 1) {
+                    addEvent(elem, "focusout", triggerChangeIfValueChanged);
+                    addEvent(elem, "click", triggerChangeOnClick);
+                    addEvent(elem, "keydown", triggerChangeOnKeyDown);
+                    addEvent(elem, "beforceactivate", triggerChangeOnBefore);
+                }
+            };
+
+            this.removeChange = function (elem, fn) {
+                removeEvent(elem, "change", fn);
+                if (isEventSupported("change")) return;
+                var data= getData(elem);
+                if (!data || !data.events || !data.events.submit) {
+                    addEvent(elem, "focusout", triggerChangeIfValueChanged);
+                    addEvent(elem, "click", triggerChangeOnClick);
+                    addEvent(elem, "keydown", triggerChangeOnKeyDown);
+                    addEvent(elem, "beforceactivate", triggerChangeOnBefore);
+                }
+            };
+
+            function triggerChangeOnClick(e) {
+                var type = e.target.type;
+                if (type === "radio" || type === "checkbox" ||
+                        e.target.nodeName.toLowerCase() === "select") {
+                    return triggerChangeIfValueChanged.call(this, e);
+                }
+            }
+
+            function triggerChangeOnKeyDown(e) {
+                var type = e.target.type,
+                    key = e.keyCode;
+                if (key === 13 && e.target.nodeName.toLowerCase() !== "textarea" ||
+                        key === 32 && (type === "checkbox" || type === "radio") ||
+                        type === "select-multiple") {
+                    return triggerChangeIfValueChanged.call(this, e);
+                }
+            }
+
+            function triggerChangeOnBefore(e) {
+                getData(e.target)._change_data = getVal(e.target);
+            }
+
+            function getVal(elem) {
+                var type = elem.type,
+                    val = elem.value;
+                if (type === "radio" || type === "checkbox") {
+                    val = elem.checked;
+                } else if (type === "select-multiple") {
+                    val = "";
+                    if (elem.selectedIndex > -1) {
+                        for (var i = 0; i < elem.options.length; i++) {
+                            val += "-" + elem.options[i].selected;
+                        }
+                    }
+                } else if (elem.nodeName.toLowerCase() === "select") {
+                    val = elem.selectedIndex;
+                }
+                return val;
+            }
+
+            function triggerChangeIfValueChanged(e) {
+                var elem = e.target, data, val;
+                var formElems = /textarea|input|select/i;
+                if (!formElems.test(elem.nodeName) || elem.readOnly) {
+                    return;
+                }
+                data = getData(elem)._change_data;
+                val = getVal(elem);
+
+                if (e.type !== "focusout" || elem.type !== "radio") {
+                    getData(elem)._change_data = val;
+                }
+                if (data === undefined || val === data) {
+                    return;
+                }
+                if (data != null || val) {
+                    return triggerEvent(elem, "change");
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
