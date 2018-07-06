@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-13.14</title>
+    <style>
+        .over {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div>Hover <strong>over</strong> me!</div>
+    <script src="data.js"></script>
+    <script src="fixup.js"></script>
+    <script src="events.js"></script>
+    <script src="trigger.js"></script>
+    <script>
+        /**为所有浏览器添加mouseenter和mouseleave事件的支持*/
+        (function () {
+            if (isEventSupported("mouseenter")) {
+                this.hover = function (elem, fn) {
+                    addEvent(elem, "mouseenter", function () {
+                        fn.call(elem, "mouseenter");
+                    });
+                    addEvent(elem, "mouseleave", function () {
+                        fn.call(elem, "mouseleave");
+                    });
+                }
+            }
+            else {
+                this.hover = function (elem, fn) {
+                    addEvent(elem, "mouseover", function (e) {
+                        withinElement(this, e, "mouseenter", fn);
+                    });
+                    addEvent(elem, "mouseout", function (e) {
+                        withinElement(this, e, "mouseleave", fn);
+                    });
+                }
+            }
+
+            function withinElement(elem, event, type, handle) {
+                var parent = event.ralatedTarget;
+                while (parent && parent != elem) {
+                    try {
+                        parent = parent.parentNode;
+                    } catch (e) {
+                        break;
+                    }
+                }
+
+                if (parent != elem) {
+                    handle.call(elem, type);
+                }
+            }
+        })();
+
+        window.onload = function () {
+            var div = document.getElementsByTagName("div")[0];
+
+            hover(div, function (type) {
+                if (type === "mouseenter") {
+                    this.className = "over";
+                } else {
+                    this.className = "";
+                }
+            });
+        }
+        function isEventSupported(eventName) {
+            var element = document.createElement("div"),
+                isSupported;
+            eventName = "on" + eventName;
+            isSupported = (eventName in element);
+
+            if (!isSupported) {
+                element.setAttribute(eventName, "return;");
+                isSupported = typeof  element[eventName] == "function";
+            }
+            element = null;
+            return isSupported;
+        }
+    </script>
+</body>
+</html>
