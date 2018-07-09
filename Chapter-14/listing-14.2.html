@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-14.2</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**将一些标签生成一个DOM节点列表*/
+        function getNodes(htmlString, doc) {
+            // 元素类型和特殊父容器之间的映射
+            // 每个映射都有3个值: [节点深度, 父元素开启标签, 父元素关闭标签]
+            var map = {
+                "<td": [3, "<table><tbody><tr>", "</tr></tbody></table>"],
+                "<th": [3, "<table><tbody><tr>", "</tr></tbody></table>"],
+                "<tr": [3, "<table><tbody><tr>", "</tr></tbody></table>"],
+                "option": [1, "<select multiple='multiple'>", "</select>"],
+                "<optgroup": [1, "<select multiple='multiple'>", "</select>"],
+                "<legend": [1, "<fieldset>", "</fieldset>"],
+                "<thead": [1, "<table>", "</table>"],
+                "<tbody": [1, "<table>", "</table>"],
+                "<tfoot": [1, "<table>", "</table>"],
+                "<colgroup": [1, "<table>", "</table>"],
+                "<caption": [1, "<table>", "</table>"],
+                "<col": [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
+                "<link": [3, "<div></div><div>", "</div>"]
+            }
+            // 使用正则表达式匹配开始尖括号和要注入的元素标签名称
+            var tagName = htmlString.match(/<\w+/),
+                mapEntry = tagName ? map[tagName[0]] : null;
+            // 如果匹配了映射中的内容，就获取该条目，否则就构建一个深度为0的虚假空父节点
+            if (!mapEntry) mapEntry = [0, "", ""];
+            // 创建一个<div>元素，在里面创建新节点。注意，如果传入的文档存在的话就使用传入的文档，如果不存在就使用当前默认的文档
+            var div = (doc || document).createElement("div");
+            // 将要注入的新标签包装在来自映射的父元素中，然后将其作为新创建的<div>的innerHTML的内容进行注入
+            div.innerHTML = mapEntry[1] + htmlString + mapEntry[2];
+
+            // 遍历刚创建的DOM树，遍历深度为map条目里定义的深度值。最终的值应该是新创建的父元素
+            while (mapEntry[0]--) div = div.lastChild;
+
+            return div.childNodes;
+        }
+
+        assert(getNodes("<td>test</td><td>test2</td>").length === 2, "Get tow nodes from the method.");
+        assert(getNodes("<td>test</td>")[0].nodeName === "TD", "Verify that we're getting the right node.");
+    </script>
+</body>
+</html>
