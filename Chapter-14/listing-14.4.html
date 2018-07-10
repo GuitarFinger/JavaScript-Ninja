@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-14.4</title>
+
+</head>
+<body>
+    <script>
+        /**找出元素的插入点*/
+        function root(elem, cur) {
+            return elem.nodeName.toLowerCase() === "table" &&
+                    cur.nodeName.toLowerCase() === "tr" ?
+                    (elem.getElementsByTagName("tbody")[0] || elem.appendChild(elem.ownerDocument.createElement("tbody"))) :
+                    elem;
+        }
+    </script>
+</body>
+</html>
