@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-14.6</title>
+</head>
+<body>
+    <script>
+        /**全局作用域内的脚本求值*/
+        function globalEval(data) {
+            data = data.replace(/^\s+|\s+$/g, "");
+            if (data) {
+                var head = document.getElementsByTagName("head")[0] || document.documentElement,
+                    script = document.createElement("script");
+
+                script.type = "text/javascript";
+                script.text = data;
+
+                head.insertBefore(script, head.firstChild);
+                head.removeChild(script);
+            }
+        }
+    </script>
+</body>
+</html>
