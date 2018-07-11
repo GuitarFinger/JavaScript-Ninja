@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-15.1</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <!--使用Selectors API-->
+    <div id="test">
+        <b>Hello</b>, I'm a ninja!
+    </div>
+    <div id="test2"></div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        window.onload = function () {
+            // 查找body子元素的<div>元素
+            var divs = document.querySelectorAll("body > div");
+            assert(divs.length === 2, "Tow divs found using a CSS selector.");
+
+            // 只查找粗体子元素
+            var b = document.getElementById("test").querySelector("b:only-child");
+
+            assert(b, "The bold element was found relative to another element.");
+        }
+    </script>
+</body>
+</html>
