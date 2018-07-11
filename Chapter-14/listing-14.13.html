@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-14.13</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div id="test"><b>Hello</b>, I'm a ninja!</div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**设置元素的文本内容*/
+        window.onload = function () {
+            var b = document.getElementById("test");
+
+            while (b.firstChild) {
+                b.removeChild(b.firstChild);
+            }
+
+            b.appendChild(document.createTextNode("Some new text"));
+
+            var text = b.textContent || b.innerText;
+
+            assert(text === "Some new text", "Set a new text value.");
+            assert(b.childNodes.length === 1, "Only one text nodes exists now.");
+        }
+    </script>
+</body>
+</html>
