@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-14.12</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div id="test"><b>Hello</b>, I'm a ninja!</div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**textContent innerText*/
+        window.onload = function () {
+            var b = document.getElementById("test");
+            var text = b.textContent || b.innerText;
+            assert(text === "Hello, I'm a ninja!", "Examine the text contents of an element.");
+            assert(b.childNodes.length === 2, "An element and a text node exist.");
+
+            if (typeof b.textContent !== "undefined") {
+                b.textContent = "Some new text";
+            } else {
+                b.innerText = "Some new text";
+            }
+
+            text = b.textContent || b.innerText;
+
+            assert(text === "Some new text", "set a new text value.");
+            assert(b.childNodes.length === 1, "Only one text nodes exists now.");
+        }
+    </script>
+</body>
+</html>
