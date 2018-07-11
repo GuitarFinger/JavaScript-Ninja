@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-14</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div id="test"><b>Hello</b>, I'm a ninja!</div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**获取元素的文本内容*/
+        window.onload = function () {
+            function getText(elem) {
+                var text = "";
+                for (var i = 0; i < elem.childNodes.length; i++) {
+                    var cur = elem.childNodes[i];
+                    if (cur.nodeType === 3) {
+                        text += cur.nodeValue;
+                    }
+                    else if (cur.nodeType === 1) {
+                        text += getText(cur);
+                    }
+                }
+
+                return text;
+            }
+
+            var b = document.getElementById("test");
+            var text = getText(b);
+
+            assert(text === "Hello, I'm a ninja!", "Examine the text contents of an element.");
+            assert(b.childNodes.length === 2, "An element and a text node exist.");
+        }
+    </script>
+</body>
+</html>
