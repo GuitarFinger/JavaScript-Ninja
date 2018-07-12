@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-15.5</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div>
+        <div>
+            <span>Span</span>
+        </div>
+    </div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        window.onload = function () {
+
+            /**
+             * 一个有局限性的、自上而下的选择器引擎
+             * @param selector {String} css选择字符串 以空格隔开
+             * @param root {DOM} 根节点
+             * @returns {Array} 查找结果数组([DOM, ...])
+             */
+            function find(selector, root) {
+                // 如果没有提供root， 就从document开始查找
+                root = root || document;
+
+                var parts = selector.split(" "), // 将选择对象分离开
+                    query = parts[0], // 取出第一段结果
+                    rest = parts.slice(1).join(" "), // 其余的查找条件放一起
+                    elems = root.getElementsByTagName(query), // 查找匹配第一选择器的元素
+                    results = []; // 初始化一个数组，将查询结果保存进去
+
+                for (var i = 0; i < elems.length; i++) {
+                    if (rest) {
+                        results = results.concat(find(rest, elems[i])); // 递归调用find(), 直到所有的选择器都查找过了
+                    } else {
+                        results.push(elems[i]); // 将查找到的元素保存在results数组上
+                    }
+                }
+                return results; // 返回匹配的元素列表
+            }
+
+            var divs = find("div");
+            assert(divs.length === 2, "Correct number of divs found.");
+
+            var divs = find("div", document.body);
+            assert(divs.length === 2, "Correct number of divs found in body.");
+
+            var divs = find("body div");
+            assert(divs.length === 2, "Correct number of divs found in body.");
+
+            var spans = find("div span");
+            assert(spans.length === 2, "A duplicate span was found.");
+        }
+//        /**反思
+//         * 该选择器只能按照标签名称来查找元素。该引擎分解为几个部分: 解析选择器、查找元素、过滤、递归合并结果。
+//         * */
+
+    </script>
+</body>
+</html>
