@@ -12,11 +12,13 @@
         var selector = "div.class > span:not(:first-child) a[href]";
         var chunker = /((?:\([^\)]+\)|\[[^\]]+\]|[^ ,\(\[]+)+)(\s*,\s*)?/g;
         var parts = [];
-
+        // 重置chunker正则的开始位置
         chunker.lastIndex = 0;
+        // 收集分解的内容
         while ((m = chunker.exec(selector)) !== null) {
             parts.push(m[1]);
 
+            // 遇到逗号后停止
             if (m[2]) {
                 extra = RegExp.rightContext;
                 break;
