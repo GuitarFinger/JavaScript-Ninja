@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listing-15.7</title>
+    <link rel="stylesheet" href="../styles/assert.css">
+</head>
+<body>
+    <div id="test">
+        <b>Hello</b>, I'm a ninja!
+    </div>
+    <div id="test2"></div>
+    <script src="../scripts/assert.js"></script>
+    <script>
+        /**在数组中查找不同的元素*/
+        (function () {
+            // 在即使函数中定义unique()函数，从而创建闭包，使得在里面可以访问run变量，但在外边却不行
+            var run = 0;
+
+            // 接收一个元素数组，并从原始数组中返回一个仅包含不同的元素的新数组
+            this.unique = function (array) {
+                var ret = [];
+                // 持续跟踪run变量，每次函数调用的时候都增加run变量的值，该唯一值用于测试唯一性
+                run++;
+
+                for (var i = 0, length = array.length; i < length; i++) {
+                    var elem = array[i];
+                    // 遍历原始数组，复制还没见到的元素，标识这些元素，使得我们可以知道已经见过了
+                    if (elem.uniqueID !== run) {
+                        elem.uniqueID = run;
+                        ret.push(array[i]);
+                    }
+                }
+                return ret;
+            };
+        })();
+
+        window.onload = function () {
+            var divs = unique(document.getElementsByTagName("div"));
+            assert(divs.length === 2, "No duplicates removed.");
+
+            var body = unique([document.body, document.body]);
+            assert(body.length === 1, "body duplicate remove.");
+        }
+    </script>
+</body>
+</html>
